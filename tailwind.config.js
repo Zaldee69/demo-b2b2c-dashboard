@@ -10,9 +10,11 @@ module.exports = {
       colors: {
         neutral800: "#172B4D",
         neutral300: "#5E6C84",
+        neutral200: "#6B778C",
         neutral10: "#FAFBFC",
         neutral50: "#C1C7D0",
         neutral80: "#97A0AF",
+        blue400: "#0052CC",
         blue80: "#DEEBFF",
         blue: "#0052CC",
         borderColor: "#C1C7D0",

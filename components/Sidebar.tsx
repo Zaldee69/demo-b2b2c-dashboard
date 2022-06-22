@@ -180,8 +180,10 @@ const Sidebar = ({
                 </p>
               </a>
               <a
-                href="/tanda"
-                className="flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3"
+                href="/check-nik"
+                className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
+                  router.asPath == "/check-nik" ? "bg-blue80" : ""
+                }`}
               >
                 <Image
                   src="/icons/IdCardIcon.svg"
@@ -189,7 +191,11 @@ const Sidebar = ({
                   width={30}
                   alt="menu"
                 />
-                <p className="text-neutral800  group-hover:text-blue">
+                <p
+                  className={`"text-neutral800 ${
+                    router.asPath === "/check-nik" ? "text-blue" : ""
+                  } group-hover:text-blue"`}
+                >
                   Pengecekan NIK
                 </p>
               </a>
