@@ -85,12 +85,12 @@ const CheckNIK: NextPage = () => {
                   //   pattern=".{16,16}[0-9]"
                   //   title="harus berisi 16 digit angka"
                   onChange={onChangeHandler}
-                  className="text-neutral50 text-sm p-4 w-full border border-neutral50 rounded mt-3 focus:outline-none focus:ring-1 ring-blue400"
+                  className="placeholder:text-neutral50 text-neutral800 text-sm p-4 w-full border border-neutral50 rounded mt-3 focus:outline-none focus:ring-1 ring-blue400"
                 />
               </label>
               <div className="mt-9 flex justify-end">
-                <button className="text-white bg-blue400 py-2.5 px-6">
-                  CEK
+                <button className="text-white bg-blue400 py-2.5 px-6 rounded">
+                  Cek
                 </button>
               </div>
             </form>
