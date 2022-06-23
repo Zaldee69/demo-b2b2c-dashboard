@@ -206,8 +206,10 @@ const Sidebar = ({
                 </p>
               </a>
               <a
-                href="/tangan"
-                className="flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3"
+                href="/document-signing"
+                className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
+                  router.asPath == "/document-signing" ? "bg-blue80" : ""
+                }`}
               >
                 <Image
                   src="/icons/PencilICon.svg"
@@ -215,7 +217,11 @@ const Sidebar = ({
                   width={30}
                   alt="menu"
                 />
-                <p className="text-neutral800  group-hover:text-blue">
+                <p
+                  className={`"text-neutral800 ${
+                    router.asPath === "/document-signing" ? "text-blue" : ""
+                  } group-hover:text-blue"`}
+                >
                   Penandatanganan Dokumen
                 </p>
               </a>
