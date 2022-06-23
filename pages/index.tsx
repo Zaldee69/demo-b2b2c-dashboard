@@ -1,232 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Sidebar from "@/components/Sidebar";
 import Head from "next/head";
 import Image from "next/image";
 import Pagination from "@/components/Pagination";
+import { restGetListRequestData } from "@/infrastructure/rest/list-request/index";
+
 
 
 const Home: NextPage = () => {
-  const data = [
-    {
-      id: 13,
-      regId: 13131232323232323,
-      channelName: "Danaaa Bagus",
-      status: "Cek NIK",
-      nik: 262732737217826127,
-    },
-    {
-      id: 14,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Daftar",
-      nik: 262732737217826127,
-    },
-    {
-      id: 15,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Dalam Proses",
-      nik: 262732737217826127,
-    },
-    {
-      id: 26,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Terdaftar",
-      nik: 262732737217826127,
-    },
-    {
-      id: 3,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Penautan",
-      nik: 262732737217826127,
-    },
-    {
-      id: 4,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Tertaut",
-      nik: 262732737217826127,
-    },
-    {
-      id: 5,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Kadaluarsa",
-      nik: 262732737217826127,
-    },
-    {
-      id: 6,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Terdaftar",
-      nik: 262732737217826127,
-    },
-    {
-      id: 7,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Penautan",
-      nik: 262732737217826127,
-    },
-    {
-      id: 8,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Tertaut",
-      nik: 262732737217826127,
-    },
-    {
-      id: 9,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Cek NIK",
-      nik: 262732737217826127,
-    },
-    {
-      id: 10,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Dalam Proses",
-      nik: 262732737217826127,
-    },
-    {
-      id: 11,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Terdaftar",
-      nik: 262732737217826127,
-    },
-    {
-      id: 12,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Penautan",
-      nik: 262732737217826127,
-    },
-    {
-      id: 13,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Cek NIK",
-      nik: 262732737217826127,
-    },
-    {
-      id: 14,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Penautan",
-      nik: 262732737217826127,
-    },
-    {
-      id: 15,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Tertaut",
-      nik: 262732737217826127,
-    },
-    {
-      id: 16,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Dalam Proses",
-      nik: 262732737217826127,
-    },
-    {
-      id: 17,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Daftar",
-      nik: 262732737217826127,
-    },
-    {
-      id: 18,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Daftar",
-      nik: 262732737217826127,
-    },
-    {
-      id: 19,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Tertaut",
-      nik: 262732737217826127,
-    },
-    {
-      id: 20,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Cek NIK",
-      nik: 262732737217826127,
-    },
-    {
-      id: 21,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Dalam Proses",
-      nik: 262732737217826127,
-    },
-    {
-      id: 22,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Terdaftar",
-      nik: 262732737217826127,
-    },
-    {
-      id: 23,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Penautan",
-      nik: 262732737217826127,
-    },
-    {
-      id: 24,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Tertaut",
-      nik: 262732737217826127,
-    },
-    {
-      id: 25,
-      regId: 13131232323232323,
-      channelName: "Dana Bagus",
-      status: "Kadaluarsa",
-      nik: 262732737217826127,
-    },
-  ];
-
+  const [data, setData] = useState([]);
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
   const [isSearchGroup, setIsSearchGroup] = useState<boolean>(false);
-  const [page, setPage] = useState(5);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [page, setPage] = useState<number>(5);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [total, setTotal] = useState<number>(0);
+  const [channel, setChannel] = useState("");
+  const [status, setStatus] = useState("");
+  const [nikOrReqId, setNikOrReqId] = useState("");
 
   const indexOfLastData = currentPage * page;
   const indexOfFirstData = indexOfLastData - page;
   const currentPages = data.slice(indexOfFirstData, indexOfLastData);
-  const pageCount = data.length / page;
-  const [channel, setChannel] = useState("");
-  const [status, setStatus] = useState("");
-  const [nik, setNik] = useState("");
+  const pageCount = total / page;
 
- 
+  const getListResquestData = () => {
+    restGetListRequestData({
+      params: { channel, nikOrReqId, status },
+    }).then((res) => {
+      setData(res.rows);
+      setTotal(res.count);
+    });
+  };
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement |  HTMLSelectElement>) => {
-    const { name, value } = e.target as typeof e.target
+  useEffect(() => {
+    getListResquestData();
+  }, []);
+
+  const onChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    e.preventDefault();
+    const { name, value } = e.currentTarget as typeof e.currentTarget;
     if (name === "nik") {
-      setNik(value);
+      setNikOrReqId(value);
     } else if (name === "channel") {
       setChannel(value);
     } else {
       setStatus(value);
     }
+    getListResquestData();
   };
 
   const handlePageClick = (data: any) => {
-    setCurrentPage(data.selected + 1);
+    setCurrentPage(data);
+  };
+
+  const resetField = () => {
+    setNikOrReqId("");
+    setChannel("");
+    setStatus("");
+    getListResquestData();
   };
 
   return (
@@ -240,6 +74,14 @@ const Home: NextPage = () => {
         isSearchGroup={isSearchGroup}
         setShowSideBar={setShowSideBar}
         showSideBar={showSideBar}
+        onChangeHandler={onChangeHandler}
+        setNikOrReqId={setNikOrReqId}
+        setChannel={setChannel}
+        setStatus={setStatus}
+        channel={channel}
+        status={status}
+        nikOrReqId={nikOrReqId}
+        resetField={resetField}
       />
       <div className="mb-5 overflow-x-hidden h-screen">
         <div className="flex flex-row  items-center md:absolute relative  bg-neutral10 justify-between px-10 py-5 ">
@@ -274,7 +116,9 @@ const Home: NextPage = () => {
               </span>
               <input
                 type="text"
-                name="Search"
+                onChange={onChangeHandler}
+                value={nikOrReqId}
+                name="nik"
                 placeholder="Cari Register ID / NIK"
                 className="w-full py-2 pl-10 text-sm rounded-md sm:w-full focus:outline-none dark:bg-gray-800 dark:text-gray-100 border-borderColor"
               />
@@ -297,7 +141,7 @@ const Home: NextPage = () => {
             </span>
             <input
               onChange={onChangeHandler}
-              value={nik}
+              value={nikOrReqId}
               type="text"
               name="nik"
               placeholder="Cari Register ID / NIK"
@@ -315,7 +159,7 @@ const Home: NextPage = () => {
               name="channel"
               id="channel"
             >
-              <option  selected value="">
+              <option selected value="">
                 Nama Channel
               </option>
               <option value="Dana Bagus">Dana Bagus</option>
@@ -341,57 +185,83 @@ const Home: NextPage = () => {
                 Status
               </option>
               <option value="Daftar">Dalam Proses</option>
-              <option value="Dalam Proses">Dalam Proses</option>
+              <option value="Dalam Proses">Cek Nik</option>
               <option value="Terdaftar">Terdaftar</option>
               <option value="Penautan">Penautan</option>
               <option value="Tertaut">Tertaut</option>
+              <option value="Tertaut">Daftar</option>
               <option value="Kadaluarsa">Kadaluarsa</option>
             </select>
             <span className="absolute inset-y-0 right-0 flex items-center pr-5">
               <Image src="/icons/arrowdon.svg" height={13} width={13} />
             </span>
           </div>
+          <button
+            type="button"
+            onClick={resetField}
+            className="text-blue mt-5 font-medium"
+          >
+            Reset
+          </button>
         </form>
         <Table currentPages={currentPages} />
         <Pagination
-        pageCount={pageCount}
-        setPage={setPage}
-        page={page}
-        handlePageClick={handlePageClick}
-        total={data.length}
-
-      />
-        {currentPages.map((el) => (
-          <div key={el.id} className="px-3 md:hidden mt-5">
+          pageCount={pageCount}
+          setPage={setPage}
+          page={page}
+          handlePageClick={handlePageClick}
+          total={total as number}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+        {currentPages?.map((el: any, idx: any) => (
+          <div key={idx} className="px-3 md:hidden mt-5">
             <div className="border w-full mb-3 bg-white p-5 rounded-xl">
               <p className="text-neutral80 font-semibold">Register ID</p>
-              <p>{el.regId}</p>
+              <p>{el.id}</p>
               <p className="text-neutral80 font-semibold mt-5">NIK</p>
               <p>{el.nik}</p>
               <p className="text-neutral80 font-semibold mt-5">Channel Name</p>
-              <p>{el.channelName}</p>
+              <p>{el.Channel.name}</p>
               <p className="text-neutral80 font-semibold mt-5">Status</p>
               <p
                 className={`${
-                  el.status === "Cek NIK"
+                  el.status.toLowerCase() === "cek nik"
                     ? "bg-checkColor"
-                    : el.status === "Daftar"
+                    : el.status.toLowerCase() === "daftar"
                     ? "bg-registerColor"
-                    : el.status === "Dalam Proses"
+                    : el.status.toLowerCase() === "dalam proses"
                     ? "bg-onProgressColor"
-                    : el.status === "Terdaftar"
+                    : el.status.toLowerCase() === "terdaftar"
                     ? "bg-registeredColor"
-                    : el.status === "Penautan"
+                    : el.status.toLowerCase() === "penautan"
                     ? "bg-linkColor"
-                    : el.status === "Tertaut"
+                    : el.status.toLowerCase() === "tertaut"
                     ? "bg-linkedColor"
-                    : el.status === "Kadaluarsa"
+                    : el.status.toLowerCase() === "kadaluarsa"
                     ? "bg-expiredColor"
                     : ""
-                } w-fit px-4 py-1 rounded-xl`}
+                } w-fit px-2 py-1 rounded-xl`}
               >
                 {el.status}
               </p>
+              <a rel="noopener norefferer" target="_blank" href={el.Channel.redirect_url}  className="bg-blue text-center leading-10 mx-auto block text-white h-10 mt-10 w-full rounded-md">
+                  {el.status.toLowerCase() === "cek nik"
+                    ? "Cek"
+                    : el.status.toLowerCase() === "daftar"
+                    ? "Lanjut"
+                    : el.status.toLowerCase() === "dalam proses"
+                    ? "Lihat"
+                    : el.status.toLowerCase() === "terdaftar"
+                    ? "Tautkan"
+                    : el.status.toLowerCase() === "penautan"
+                    ? "Lanjut"
+                    : el.status.toLowerCase() === "tertaut"
+                    ? "Login"
+                    : el.status.toLowerCase() === "kadaluarsa"
+                    ? "-"
+                    : ""}
+                </a>
             </div>
           </div>
         ))}
@@ -403,7 +273,7 @@ const Home: NextPage = () => {
 const Table = ({ currentPages }: any) => {
   return (
     <div className=" hidden mt-8 overflow-x-auto md:block md:pr-5 lg:pr-0 ml-80">
-      <table style={{width: "950px"}} className=" table-fixed border">
+      <table style={{ width: "950px" }} className=" table-fixed border">
         <thead className="bg-white">
           <tr className="text-left ">
             <th className="font-medium text-sm border-b p-4 ">Register ID</th>
@@ -414,27 +284,27 @@ const Table = ({ currentPages }: any) => {
           </tr>
         </thead>
         <tbody>
-          {currentPages.map((el: any) => (
-            <tr key={el.id} className="border-b text-left text-sm bg-white">
-              <td className="font-normal text-sm py-5 px-4">{el.regId}</td>
+          {currentPages?.map((el: any, idx: any) => (
+            <tr key={idx} className="border-b text-left text-sm bg-white">
+              <td className="font-normal text-sm py-5 px-4">{el.request_id}</td>
               <td>{el.nik}</td>
-              <td>{el.channelName}</td>
+              <td>{el.Channel.name}</td>
               <td>
                 <span
                   className={`${
-                    el.status === "Cek NIK"
+                    el.status.toLowerCase() === "cek nik"
                       ? "bg-checkColor"
-                      : el.status === "Daftar"
+                      : el.status.toLowerCase() === "daftar"
                       ? "bg-registerColor"
-                      : el.status === "Dalam Proses"
+                      : el.status.toLowerCase() === "dalam proses"
                       ? "bg-onProgressColor"
-                      : el.status === "Terdaftar"
+                      : el.status.toLowerCase() === "terdaftar"
                       ? "bg-registeredColor"
-                      : el.status === "Penautan"
+                      : el.status.toLowerCase() === "penautan"
                       ? "bg-linkColor"
-                      : el.status === "Tertaut"
+                      : el.status.toLowerCase() === "tertaut"
                       ? "bg-linkedColor"
-                      : el.status === "Kadaluarsa"
+                      : el.status.toLowerCase() === "kadaluarsa"
                       ? "bg-expiredColor"
                       : ""
                   } w-fit px-2 py-1 rounded-xl`}
@@ -444,19 +314,19 @@ const Table = ({ currentPages }: any) => {
               </td>
               <td>
                 <button className="bg-blue text-white h-10 w-20 rounded-md">
-                  {el.status === "Cek NIK"
+                  {el.status.toLowerCase() === "cek nik"
                     ? "Cek"
-                    : el.status === "Daftar"
+                    : el.status.toLowerCase() === "daftar"
                     ? "Lanjut"
-                    : el.status === "Dalam Proses"
+                    : el.status.toLowerCase() === "dalam proses"
                     ? "Lihat"
-                    : el.status === "Terdaftar"
+                    : el.status.toLowerCase() === "terdaftar"
                     ? "Tautkan"
-                    : el.status === "Penautan"
+                    : el.status.toLowerCase() === "penautan"
                     ? "Lanjut"
-                    : el.status === "Tertaut"
+                    : el.status.toLowerCase() === "tertaut"
                     ? "Login"
-                    : el.status === "Kadaluarsa"
+                    : el.status.toLowerCase() === "kadaluarsa"
                     ? "-"
                     : ""}
                 </button>
@@ -468,5 +338,6 @@ const Table = ({ currentPages }: any) => {
     </div>
   );
 };
+
 
 export default Home;

@@ -5,6 +5,16 @@ import { useRouter } from "next/router";
 type Props = {
   setShowSideBar: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSearchGroup: React.Dispatch<React.SetStateAction<boolean>>;
+  setNikOrReqId?: React.Dispatch<React.SetStateAction<string>>;
+  setChannel?: React.Dispatch<React.SetStateAction<string>>;
+  setStatus?: React.Dispatch<React.SetStateAction<string>>;
+  onChangeHandler?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  resetField?: () => void;
+  channel?: string;
+  status?: string;
+  nikOrReqId?: string;
   showSideBar: boolean;
   isSearchGroup: boolean;
 };
@@ -14,24 +24,17 @@ const Sidebar = ({
   showSideBar,
   isSearchGroup,
   setIsSearchGroup,
+  setNikOrReqId,
+  setChannel,
+  setStatus,
+  onChangeHandler,
+  channel,
+  status,
+  nikOrReqId,
+  resetField,
 }: Props) => {
-  const [channel, setChannel] = useState("");
-  const [status, setStatus] = useState("");
-  const [nik, setNik] = useState("");
   const router = useRouter();
 
-  const onChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target as typeof e.target;
-    if (name === "nik") {
-      setNik(value);
-    } else if (name === "channel") {
-      setChannel(value);
-    } else {
-      setStatus(value);
-    }
-  };
   return (
     <aside
       className={`w-full z-50 fixed  ${
@@ -83,7 +86,7 @@ const Sidebar = ({
                 </span>
                 <input
                   onChange={onChangeHandler}
-                  value={nik}
+                  value={nikOrReqId}
                   type="text"
                   name="nik"
                   placeholder="Cari Register ID / NIK"
@@ -140,16 +143,19 @@ const Sidebar = ({
               <div className="absolute flex space-x-5 text-lg bottom-36 right-10">
                 <button
                   type="button"
-                  onClick={() => {
-                    setNik("");
-                    setChannel("");
-                    setStatus("");
-                  }}
+                  onClick={() => resetField}
                   className="text-blue font-medium"
                 >
                   Reset
                 </button>
-                <button className="bg-blue text-white h-10 w-20 rounded-sm">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowSideBar(false);
+                    setIsSearchGroup(false);
+                  }}
+                  className="bg-blue text-white h-10 w-20 rounded-sm"
+                >
                   Filter
                 </button>
               </div>
