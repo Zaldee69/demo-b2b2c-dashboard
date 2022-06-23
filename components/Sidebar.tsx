@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 type Props = {
   setShowSideBar: React.Dispatch<React.SetStateAction<boolean>>;
@@ -165,51 +166,53 @@ const Sidebar = ({
               style={{ margin: 0 }}
               className="flex flex-col font-medium  md:pt-0 pt-20  space-y-1"
             >
-              <a
-                href="/"
-                className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
-                  router.asPath == "/" ? "bg-blue80" : ""
-                }`}
-              >
-                <Image
-                  src="/icons/BarsIcon.svg"
-                  height={30}
-                  width={30}
-                  alt="menu"
-                />
-                <p
-                  className={`"text-neutral800 ${
-                    router.asPath === "/" ? "text-blue" : ""
-                  } group-hover:text-blue"`}
+              <Link href="/">
+                <a
+                  className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
+                    router.asPath == "/" ? "bg-blue80" : ""
+                  }`}
                 >
-                  List Request Akun Tilaka
-                </p>
-              </a>
-              <a
-                href="/check-nik"
-                className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
-                  router.asPath == "/check-nik" ? "bg-blue80" : ""
-                }`}
-              >
-                <Image
-                  src="/icons/IdCardIcon.svg"
-                  height={30}
-                  width={30}
-                  alt="menu"
-                />
-                <p
-                  className={`"text-neutral800 ${
-                    router.asPath === "/check-nik" ? "text-blue" : ""
-                  } group-hover:text-blue"`}
+                  <Image
+                    src="/icons/BarsIcon.svg"
+                    height={30}
+                    width={30}
+                    alt="menu"
+                  />
+                  <p
+                    className={`"text-neutral800 ${
+                      router.asPath === "/" ? "text-blue" : ""
+                    } group-hover:text-blue"`}
+                  >
+                    List Request Akun Tilaka
+                  </p>
+                </a>
+              </Link>
+
+              <Link href="/check-nik">
+                <a
+                  className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
+                    router.asPath == "/check-nik" ? "bg-blue80" : ""
+                  }`}
                 >
-                  Pengecekan NIK
-                </p>
-              </a>
+                  <Image
+                    src="/icons/IdCardIcon.svg"
+                    height={30}
+                    width={30}
+                    alt="menu"
+                  />
+                  <p
+                    className={`"text-neutral800 ${
+                      router.asPath === "/check-nik" ? "text-blue" : ""
+                    } group-hover:text-blue"`}
+                  >
+                    Pengecekan NIK
+                  </p>
+                </a>
+              </Link>
+
               <a
-                href="/document-signing"
-                className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
-                  router.asPath == "/document-signing" ? "bg-blue80" : ""
-                }`}
+                href="/tangan"
+                className="flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3"
               >
                 <Image
                   src="/icons/PencilICon.svg"
@@ -217,15 +220,12 @@ const Sidebar = ({
                   width={30}
                   alt="menu"
                 />
-                <p
-                  className={`"text-neutral800 ${
-                    router.asPath === "/document-signing" ? "text-blue" : ""
-                  } group-hover:text-blue"`}
-                >
+                <p className="text-neutral800  group-hover:text-blue">
                   Penandatanganan Dokumen
                 </p>
               </a>
             </div>
+
           )}
         </div>
       </nav>
