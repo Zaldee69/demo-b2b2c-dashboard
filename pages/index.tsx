@@ -245,7 +245,7 @@ const Home: NextPage = () => {
               >
                 {el.status}
               </p>
-              <a rel="noopener norefferer" target="_blank" href={el.Channel.redirect_url}  className="bg-blue text-center leading-10 mx-auto block text-white h-10 mt-10 w-full rounded-md">
+              <a rel="noopener noreferrer" target="_blank" href={el.Channel.redirect_url}  className="bg-blue text-center leading-10 mx-auto block text-white h-10 mt-10 w-full rounded-md">
                   {el.status.toLowerCase() === "cek nik"
                     ? "Cek"
                     : el.status.toLowerCase() === "daftar"
