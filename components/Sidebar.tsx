@@ -6,13 +6,11 @@ import Link from "next/link";
 type Props = {
   setShowSideBar: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSearchGroup: React.Dispatch<React.SetStateAction<boolean>>;
-  setNikOrReqId?: React.Dispatch<React.SetStateAction<string>>;
-  setChannel?: React.Dispatch<React.SetStateAction<string>>;
-  setStatus?: React.Dispatch<React.SetStateAction<string>>;
   onChangeHandler?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
   resetField?: () => void;
+  getListResquestData: () => void | undefined
   channel?: string;
   status?: string;
   nikOrReqId?: string;
@@ -25,14 +23,12 @@ const Sidebar = ({
   showSideBar,
   isSearchGroup,
   setIsSearchGroup,
-  setNikOrReqId,
-  setChannel,
-  setStatus,
   onChangeHandler,
   channel,
   status,
   nikOrReqId,
   resetField,
+  getListResquestData
 }: Props) => {
   const router = useRouter();
 
@@ -76,7 +72,7 @@ const Sidebar = ({
             />
           </button>
           {isSearchGroup ? (
-            <form className="pt-20 px-8 w-full h-full flex flex-col space-y-5">
+            <form  className="pt-20 px-8 w-full h-full flex flex-col space-y-5">
               <div className="relative rounded border">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                   <Image
@@ -144,14 +140,15 @@ const Sidebar = ({
               <div className="absolute flex space-x-5 text-lg bottom-36 right-10">
                 <button
                   type="button"
-                  onClick={() => resetField}
+                  onClick={resetField}
                   className="text-blue font-medium"
                 >
                   Reset
                 </button>
                 <button
-                  type="button"
+                  type="submit"
                   onClick={() => {
+                    getListResquestData()
                     setShowSideBar(false);
                     setIsSearchGroup(false);
                   }}
@@ -195,7 +192,7 @@ const Sidebar = ({
                   }`}
                 >
                   <Image
-                    src="/icons/IdCardIcon.svg"
+                    src="/icons/IdcardIcon.svg"
                     height={30}
                     width={30}
                     alt="menu"
@@ -209,13 +206,12 @@ const Sidebar = ({
                   </p>
                 </a>
               </Link>
-
-              <a
-                href="/tangan"
+              <Link href="/document-signing">
+                <a
                 className="flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3"
               >
                 <Image
-                  src="/icons/PencilICon.svg"
+                  src="/icons/PencilIcon.svg"
                   height={30}
                   width={30}
                   alt="menu"
@@ -224,8 +220,8 @@ const Sidebar = ({
                   Penandatanganan Dokumen
                 </p>
               </a>
+              </Link>
             </div>
-
           )}
         </div>
       </nav>

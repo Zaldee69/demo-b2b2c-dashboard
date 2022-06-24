@@ -23,6 +23,8 @@ const DocumentSigning: NextPage = () => {
     alert(JSON.stringify(form, null, 4));
   };
 
+  const getListResquestData = ():void => {}
+
   return (
     <>
       <Head>
@@ -34,6 +36,7 @@ const DocumentSigning: NextPage = () => {
         isSearchGroup={isSearchGroup}
         setShowSideBar={setShowSideBar}
         showSideBar={showSideBar}
+        getListResquestData={getListResquestData}
       />
       <div className="mb-5 overflow-x-hidden h-screen">
         <div className="flex flex-row  items-center md:absolute relative  bg-neutral10 justify-between px-10 py-5 ">
