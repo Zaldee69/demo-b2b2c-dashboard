@@ -44,7 +44,6 @@ const CheckNIK: NextPage = () => {
         isSearchGroup={isSearchGroup}
         setShowSideBar={setShowSideBar}
         showSideBar={showSideBar}
-        getListResquestData={getListResquestData}
       />
       <div className="mb-5 overflow-x-hidden h-screen">
         <div className="flex flex-row  items-center md:absolute relative  bg-neutral10 justify-between px-10 py-5 ">
