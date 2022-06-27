@@ -105,12 +105,12 @@ const CheckNIK: NextPage = () => {
           id="modalCheckNIKResult"
           className="modal-toggle"
         />
-        <label className="modal cursor-pointer" htmlFor="modalCheckNIKResult">
+        <label className="modal cursor-pointer " htmlFor="modalCheckNIKResult">
           <label
-            className="modal-box rounded max-w-3xl px-6 pt-4 pb-6 bg-white"
+            className="modal-box overflow-hidden rounded max-w-3xl px-6 pt-4 pb-6 bg-white"
             htmlFor=""
           >
-            <div className="flex items-start md:items-center px-4 py-5 flex-wrap flex-col md:flex-row ">
+            <div className="flex items-start md:items-center  px-4 py-5 flex-wrap flex-col md:flex-row ">
               <p className="text-sm text-neutral200">Request ID</p>
               <div className="text-sm text-neutral800 bg-neutral40 px-2.5 py-0.5 ml-0 md:ml-3 mt-3 md:mt-0">
                 de836b20-2b27-4180-ab5b-d5703edb5717
@@ -121,43 +121,67 @@ const CheckNIK: NextPage = () => {
             </div>
             <div className="bg-neutral20 px-4 sm:px-12 md:px-32 py-4">
               <p className="text-lg sm:text-xl md:text-2xl font-normal text-center text-neutral800">
-                Halaman <span className="italic">Customer Consent</span>
+                {form.nik === "consent" ? (
+                  <>
+                    Halaman <span className="italic">Customer Consent</span>
+                  </>
+                ) : (
+                  <>
+                    Aktivasi Akun Tilaka{" "}
+                    <span className="block">Dalam Proses</span>
+                  </>
+                )}
               </p>
               <div className="mt-3 text-center">
                 <Image
-                  src="/illustration/CustomerConsent.svg"
+                  src={`/illustration/${
+                    form.nik === "consent" ? "CustomerConsent" : "Waiting"
+                  }.svg`}
                   width="151px"
                   height="151px"
                 />
               </div>
-              <p className="mt-3 font-normal text-neutral800 text-sm">
-                Dengan melakukan Aktivasi Akun Tilaka berarti Anda setuju untuk
-                membagikan informasi kepada Tilaka Nusa Teknologi sebagai
-                partner tanda tangan digital Dana Bagus.
+              <p className="mt-3 text-center font-normal text-neutral800 text-sm">
+                {form.nik === "consent" ? (
+                  <>
+                    Dengan melakukan Aktivasi Akun Tilaka berarti Anda setuju
+                    untuk membagikan informasi kepada Tilaka Nusa Teknologi
+                    sebagai partner tanda tangan digital Dana Bagus.
+                  </>
+                ) : (
+                  <>
+                    Mohon periksa email Anda untuk pemberitahuan selanjutnya
+                    mengenai aktivasi akun Tilaka.
+                  </>
+                )}
               </p>
-              <label
-                className="mt-3 label cursor-pointer"
-                htmlFor="checkNIKResultAgree"
-              >
-                <input
-                  id="checkNIKResultAgree"
-                  type="checkbox"
-                  className="checkbox checkbox-primary"
-                />
-                <p className="ml-4 font-normal text-neutral200 text-xs">
-                  Saya menyatakan bahwa data yang saya isi adalah benar dan
-                  bertanggung jawab atas keaslian data.
-                </p>
-              </label>
+              {form.nik === "consent" ? (
+                <label
+                  className="mt-3 label cursor-pointer"
+                  htmlFor="checkNIKResultAgree"
+                >
+                  <input
+                    id="checkNIKResultAgree"
+                    type="checkbox"
+                    className="checkbox checkbox-primary"
+                  />
+                  <p className="ml-4 font-normal text-neutral200 text-xs">
+                    Saya menyatakan bahwa data yang saya isi adalah benar dan
+                    bertanggung jawab atas keaslian data.
+                  </p>
+                </label>
+              ) : null}
             </div>
             <div className="flex justify-end mt-5">
               <button
                 onClick={toggleModalCheckNIKResult}
-                className="bg-white hover:opacity-50 text-blue400 px-6 py-2.5 rounded hover:cursor-pointer"
+                className={` ${form.nik === "consent" ? "bg-white text-blue400" : "bg-blue400 text-white"} hover:opacity-50  px-6 py-2.5 rounded hover:cursor-pointer`}
               >
-                Batal
+                {
+                  form.nik === "consent" ? "Batal" : "Kembali" 
+                }
               </button>
-              <button className="bg-blue400 hover:opacity-50 text-white px-6 py-2.5 rounded hover:cursor-pointer">
+              <button className={` ${form.nik !== "consent" ? "hidden" : "block"} bg-blue400 hover:opacity-50 text-white px-6 py-2.5 rounded hover:cursor-pointer`}>
                 Lanjut
               </button>
             </div>

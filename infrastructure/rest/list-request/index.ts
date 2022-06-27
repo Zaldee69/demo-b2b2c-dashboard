@@ -3,14 +3,13 @@ import { Params } from "./types";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://d6f8601e-6939-4658-8a8e-c1394707340b.mock.pstmn.io";
+  "https://e69d6d0b-5684-4da2-862a-79ca488d5507.mock.pstmn.io";
 
 export const restGetListRequestData = ({
   params,
 }: {
   params: Params;
 }): Promise<any> => {
-  console.log(params)
   return axios
     .get(
       `${BASE_URL}/requests/list?channel_id=${params.channel}&register_id_or_nik=${params.nikOrReqId}&status=${params.status}&page=${params.page}&limit=${params.limit}&success=true`

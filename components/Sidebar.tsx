@@ -6,11 +6,13 @@ import Link from "next/link";
 type Props = {
   setShowSideBar: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSearchGroup: React.Dispatch<React.SetStateAction<boolean>>;
+  setNikOrReqId?: React.Dispatch<React.SetStateAction<string>>;
+  setChannel?: React.Dispatch<React.SetStateAction<string>>;
+  setStatus?: React.Dispatch<React.SetStateAction<string>>;
   onChangeHandler?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
   resetField?: () => void;
-  getListResquestData: () => void | undefined
   channel?: string;
   status?: string;
   nikOrReqId?: string;
@@ -23,12 +25,14 @@ const Sidebar = ({
   showSideBar,
   isSearchGroup,
   setIsSearchGroup,
+  setNikOrReqId,
+  setChannel,
+  setStatus,
   onChangeHandler,
   channel,
   status,
   nikOrReqId,
   resetField,
-  getListResquestData
 }: Props) => {
   const router = useRouter();
 
@@ -140,15 +144,14 @@ const Sidebar = ({
               <div className="absolute flex space-x-5 text-lg bottom-36 right-10">
                 <button
                   type="button"
-                  onClick={resetField}
+                  onClick={() => resetField}
                   className="text-blue font-medium"
                 >
                   Reset
                 </button>
                 <button
-                  type="submit"
+                  type="button"
                   onClick={() => {
-                    getListResquestData()
                     setShowSideBar(false);
                     setIsSearchGroup(false);
                   }}
@@ -192,7 +195,7 @@ const Sidebar = ({
                   }`}
                 >
                   <Image
-                    src="/icons/IdcardIcon.svg"
+                    src="/icons/IdCardIcon.svg"
                     height={30}
                     width={30}
                     alt="menu"
@@ -222,6 +225,7 @@ const Sidebar = ({
               </a>
               </Link>
             </div>
+
           )}
         </div>
       </nav>

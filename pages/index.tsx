@@ -6,6 +6,8 @@ import Image from "next/image";
 import Pagination from "@/components/Pagination";
 import { restGetListRequestData } from "@/infrastructure/rest/list-request/index";
 
+
+
 const Home: NextPage = () => {
   const [data, setData] = useState([]);
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
@@ -47,6 +49,7 @@ const Home: NextPage = () => {
     } else {
       setStatus(value);
     }
+    getListResquestData();
   };
 
   const handlePageClick = (data: any) => {
@@ -72,11 +75,13 @@ const Home: NextPage = () => {
         setShowSideBar={setShowSideBar}
         showSideBar={showSideBar}
         onChangeHandler={onChangeHandler}
+        setNikOrReqId={setNikOrReqId}
+        setChannel={setChannel}
+        setStatus={setStatus}
         channel={channel}
         status={status}
         nikOrReqId={nikOrReqId}
         resetField={resetField}
-        getListResquestData={getListResquestData}
       />
       <div className="mb-5 overflow-x-hidden h-screen">
         <div className="flex flex-row  items-center md:absolute relative  bg-neutral10 justify-between px-10 py-5 ">
@@ -206,16 +211,9 @@ const Home: NextPage = () => {
             </span>
           </div>
           <button
-            onClick={getListResquestData}
-            type="button"
-            className="bg-blue text-white h-10 w-14 text-sm font-light mt-5 rounded-sm"
-          >
-            Filter
-          </button>
-          <button
             type="button"
             onClick={resetField}
-            className="text-neutral200 mt-5 font-light"
+            className="text-blue mt-5 font-medium"
           >
             Reset
           </button>
@@ -368,5 +366,6 @@ const Table = ({ currentPages }: any) => {
     </div>
   );
 };
+
 
 export default Home;
