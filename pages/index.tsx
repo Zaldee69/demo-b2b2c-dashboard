@@ -265,7 +265,7 @@ const Home: NextPage = () => {
                 rel="noopener noreferrer"
                 target="_blank"
                 href={el.custom_data}
-                className="bg-blue text-center leading-10 mx-auto block text-white h-10 mt-10 w-full rounded-md"
+                className={` ${el.status.toLowerCase() === "kadaluarsa" ? "text-black" : "bg-blue cursor-pointer text-white" }  text-center leading-10 mx-auto block text-white h-10 mt-10 w-full rounded-md`}
               >
                 {el.status.toLowerCase() === "cek nik"
                   ? "Cek"
@@ -342,7 +342,7 @@ const Table = ({ currentPages }: any) => {
                   rel="noopener noreferrer"
                   target="_blank"
                   href={el.custom_data}
-                  className="bg-blue text-center leading-10 mx-auto block text-white h-10  w-20 rounded-md"
+                  className={`${el.status.toLowerCase() === "kadaluarsa" ? "text-black" : "bg-blue cursor-pointer text-white" } text-center leading-10 mx-auto block  h-10  w-20 rounded-md`}
                 >
                   {el.status.toLowerCase() === "cek nik"
                     ? "Cek"
