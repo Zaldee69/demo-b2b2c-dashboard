@@ -76,7 +76,7 @@ const Sidebar = ({
             />
           </button>
           {isSearchGroup ? (
-            <form className="pt-20 px-8 w-full h-full flex flex-col space-y-5">
+            <form  className="pt-20 px-8 w-full h-full flex flex-col space-y-5">
               <div className="relative rounded border">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                   <Image
@@ -209,13 +209,12 @@ const Sidebar = ({
                   </p>
                 </a>
               </Link>
-
-              <a
-                href="/tangan"
+              <Link href="/document-signing">
+                <a
                 className="flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3"
               >
                 <Image
-                  src="/icons/PencilICon.svg"
+                  src="/icons/PencilIcon.svg"
                   height={30}
                   width={30}
                   alt="menu"
@@ -224,6 +223,7 @@ const Sidebar = ({
                   Penandatanganan Dokumen
                 </p>
               </a>
+              </Link>
             </div>
 
           )}
