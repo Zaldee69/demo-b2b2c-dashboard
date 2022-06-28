@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Sidebar from "@/components/Sidebar";
 import Head from "next/head";
 import Image from "next/image";
+import { restCreateRequestData } from "infrastructure/rest/create-request";
+import { TCreateRequestResponseData } from "infrastructure/rest/create-request/types";
+import { statusToClassNameConverter } from "utils/statusToClassNameConverter";
 
-type TForm = { nik?: string };
+type TForm = { nik: string };
 
 const CheckNIK: NextPage = () => {
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
   const [isSearchGroup, setIsSearchGroup] = useState<boolean>(false);
-  const [form, formSetter] = useState<TForm>({});
+  const [form, formSetter] = useState<TForm>({ nik: "" });
+  const [agree, agreeSetter] = useState<boolean>(false);
+  const [requestData, requestDataSetter] = useState<
+    TCreateRequestResponseData["data"]
+  >({ redirect_url: "", request_id: null, status: "Cek NIK" });
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as typeof e.target;
@@ -19,19 +26,31 @@ const CheckNIK: NextPage = () => {
   const onSubmitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    // hit api with form state data
-    alert(JSON.stringify(form, null, 4));
-
-    // success ?
-    // openModalCheckNIKResult();
-    toggleModalCheckNIKResult();
+    restCreateRequestData({
+      payload: {
+        nik: form.nik,
+      },
+      params: {
+        type: "check_nik",
+      },
+    })
+      .then((res) => {
+        requestDataSetter(res.data);
+        toggleModalCheckNIKResult();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const toggleModalCheckNIKResult = (): void => {
     document.getElementById("modalCheckNIKResult")?.click();
   };
 
-  const getListResquestData = ():void => {}
+  const handleOnChangeAgree = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = e.target as typeof e.target;
+    agreeSetter(checked);
+  };
 
   return (
     <>
@@ -112,15 +131,20 @@ const CheckNIK: NextPage = () => {
             <div className="flex items-start md:items-center  px-4 py-5 flex-wrap flex-col md:flex-row ">
               <p className="text-sm text-neutral200">Request ID</p>
               <div className="text-sm text-neutral800 bg-neutral40 px-2.5 py-0.5 ml-0 md:ml-3 mt-3 md:mt-0">
-                de836b20-2b27-4180-ab5b-d5703edb5717
+                {requestData.request_id}
               </div>
-              <div className="bg-registerColor px-3 py-0.5 text-neutral800 rounded-xl ml-0 md:ml-3 mt-3 md:mt-0">
-                Daftar
+              <div
+                className={[
+                  statusToClassNameConverter(requestData.status),
+                  "ml-0 md:ml-3 mt-3 md:mt-0",
+                ].join(" ")}
+              >
+                {requestData.status}
               </div>
             </div>
             <div className="bg-neutral20 px-4 sm:px-12 md:px-32 py-4">
               <p className="text-lg sm:text-xl md:text-2xl font-normal text-center text-neutral800">
-                {form.nik === "consent" ? (
+                {requestData.status !== "Dalam Proses" ? (
                   <>
                     Halaman <span className="italic">Customer Consent</span>
                   </>
@@ -134,14 +158,16 @@ const CheckNIK: NextPage = () => {
               <div className="mt-3 text-center">
                 <Image
                   src={`/illustration/${
-                    form.nik === "consent" ? "CustomerConsent" : "Waiting"
+                    requestData.status !== "Dalam Proses"
+                      ? "CustomerConsent"
+                      : "Waiting"
                   }.svg`}
                   width="151px"
                   height="151px"
                 />
               </div>
               <p className="mt-3 text-center font-normal text-neutral800 text-sm">
-                {form.nik === "consent" ? (
+                {requestData.status !== "Dalam Proses" ? (
                   <>
                     Dengan melakukan Aktivasi Akun Tilaka berarti Anda setuju
                     untuk membagikan informasi kepada Tilaka Nusa Teknologi
@@ -154,7 +180,7 @@ const CheckNIK: NextPage = () => {
                   </>
                 )}
               </p>
-              {form.nik === "consent" ? (
+              {requestData.status !== "Dalam Proses" ? (
                 <label
                   className="mt-3 label cursor-pointer"
                   htmlFor="checkNIKResultAgree"
@@ -163,6 +189,8 @@ const CheckNIK: NextPage = () => {
                     id="checkNIKResultAgree"
                     type="checkbox"
                     className="checkbox checkbox-primary"
+                    checked={agree}
+                    onChange={handleOnChangeAgree}
                   />
                   <p className="ml-4 font-normal text-neutral200 text-xs">
                     Saya menyatakan bahwa data yang saya isi adalah benar dan
@@ -174,15 +202,32 @@ const CheckNIK: NextPage = () => {
             <div className="flex justify-end mt-5">
               <button
                 onClick={toggleModalCheckNIKResult}
-                className={` ${form.nik === "consent" ? "bg-white text-blue400" : "bg-blue400 text-white"} hover:opacity-50  px-6 py-2.5 rounded hover:cursor-pointer`}
+                className={` ${
+                  requestData.status !== "Dalam Proses"
+                    ? "bg-white text-blue400"
+                    : "bg-blue400 text-white"
+                } hover:opacity-50  px-6 py-2.5 rounded hover:cursor-pointer`}
               >
-                {
-                  form.nik === "consent" ? "Batal" : "Kembali" 
-                }
+                {requestData.status !== "Dalam Proses" ? "Batal" : "Kembali"}
               </button>
-              <button className={` ${form.nik !== "consent" ? "hidden" : "block"} bg-blue400 hover:opacity-50 text-white px-6 py-2.5 rounded hover:cursor-pointer`}>
-                Lanjut
-              </button>
+              {agree ? (
+                <a
+                  href={requestData.redirect_url}
+                  className={` ${
+                    requestData.status !== "Dalam Proses" ? "block" : "hidden"
+                  } bg-blue400 hover:opacity-50 text-white px-6 py-2.5 rounded hover:cursor-pointer`}
+                >
+                  Lanjut
+                </a>
+              ) : (
+                <a
+                  className={` ${
+                    requestData.status !== "Dalam Proses" ? "block" : "hidden"
+                  } bg-blue400 hover:opacity-50 text-white px-6 py-2.5 rounded hover:cursor-pointer opacity-50`}
+                >
+                  Lanjut
+                </a>
+              )}
             </div>
           </label>
         </label>
