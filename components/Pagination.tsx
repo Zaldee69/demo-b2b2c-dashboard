@@ -55,7 +55,7 @@ const PaginationE = ({ handlePageClick, setPage, pageCount, total, page, setCurr
           <option value="10">10</option>
           <option disabled={total < 15} value="15">15</option>
         </select>
-        <p className="lg:hidden">100 dari 10 Data</p>
+        <p className="lg:hidden">{page} dari {total} Data</p>
       </form>
     </div>
   );

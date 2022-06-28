@@ -31,6 +31,8 @@ const CheckNIK: NextPage = () => {
     document.getElementById("modalCheckNIKResult")?.click();
   };
 
+  const getListResquestData = ():void => {}
+
   return (
     <>
       <Head>

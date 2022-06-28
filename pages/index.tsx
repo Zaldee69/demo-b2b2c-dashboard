@@ -105,7 +105,10 @@ const Home: NextPage = () => {
             List Request Akun Tilaka
           </p>
         </div>
-        <fieldset className="w-full md:hidden space-x-5 px-3 mt-5 space-y-1 flex ">
+        <form
+          onSubmit={getListResquestData}
+          className="w-full md:hidden space-x-5 px-3 mt-5 space-y-1 flex "
+        >
           <div className="flex-1">
             <label htmlFor="Search" className="hidden">
               Search
@@ -124,16 +127,27 @@ const Home: NextPage = () => {
               />
             </div>
           </div>
-          <p
-            onClick={() => {
-              setIsSearchGroup(true);
-              setShowSideBar(true);
-            }}
-            className="text-blue font-medium"
-          >
-            More Filter
-          </p>
-        </fieldset>
+          {nikOrReqId.length >= 1 ? (
+            <button
+              style={{marginTop : 0}}
+              onClick={getListResquestData}
+              type="button"
+              className="bg-blue text-white h-9 w-14 text-sm  font-light  rounded-sm"
+            >
+              Filter
+            </button>
+          ) : (
+            <p
+              onClick={() => {
+                setIsSearchGroup(true);
+                setShowSideBar(true);
+              }}
+              className="text-blue font-medium"
+            >
+              More Filter
+            </p>
+          )}
+        </form>
         <form className=" w-full  md:flex md:flex-col lg:flex-row lg:items-center md:items-start  hidden  ml-80    items-center gap-5">
           <div className="relative rounded mt-5 border">
             <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -245,23 +259,28 @@ const Home: NextPage = () => {
               >
                 {el.status}
               </p>
-              <a rel="noopener noreferrer" target="_blank" href={el.Channel.redirect_url}  className="bg-blue text-center leading-10 mx-auto block text-white h-10 mt-10 w-full rounded-md">
-                  {el.status.toLowerCase() === "cek nik"
-                    ? "Cek"
-                    : el.status.toLowerCase() === "daftar"
-                    ? "Lanjut"
-                    : el.status.toLowerCase() === "dalam proses"
-                    ? "Lihat"
-                    : el.status.toLowerCase() === "terdaftar"
-                    ? "Tautkan"
-                    : el.status.toLowerCase() === "penautan"
-                    ? "Lanjut"
-                    : el.status.toLowerCase() === "tertaut"
-                    ? "Login"
-                    : el.status.toLowerCase() === "kadaluarsa"
-                    ? "-"
-                    : ""}
-                </a>
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href={el.custom_data}
+                className={` ${el.status.toLowerCase() === "kadaluarsa" ? "text-black" : "bg-blue cursor-pointer text-white" }  text-center leading-10 mx-auto block text-white h-10 mt-10 w-full rounded-md`}
+              >
+                {el.status.toLowerCase() === "cek nik"
+                  ? "Cek"
+                  : el.status.toLowerCase() === "daftar"
+                  ? "Lanjut"
+                  : el.status.toLowerCase() === "dalam proses"
+                  ? "Lihat"
+                  : el.status.toLowerCase() === "terdaftar"
+                  ? "Tautkan"
+                  : el.status.toLowerCase() === "penautan"
+                  ? "Lanjut"
+                  : el.status.toLowerCase() === "tertaut"
+                  ? "Login"
+                  : el.status.toLowerCase() === "kadaluarsa"
+                  ? "-"
+                  : ""}
+              </a>
             </div>
           </div>
         ))}
@@ -276,11 +295,15 @@ const Table = ({ currentPages }: any) => {
       <table style={{ width: "950px" }} className=" table-fixed border">
         <thead className="bg-white">
           <tr className="text-left ">
-            <th className="font-medium text-sm border-b p-4 ">Register ID</th>
+            <th className="font-medium text-sm border-b p-4 w-[360px]  ">
+              Register ID
+            </th>
             <th className="font-medium text-sm border-b py-4 ">NIK</th>
             <th className="font-medium text-sm border-b py-4">Channel Name</th>
             <th className="font-medium text-sm border-b py-4">Status</th>
-            <th className="font-medium text-sm border-b py-4">Aksi</th>
+            <th className="font-medium text-sm border-b py-4 w-[100px]">
+              Aksi
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -313,7 +336,12 @@ const Table = ({ currentPages }: any) => {
                 </span>{" "}
               </td>
               <td>
-                <button className="bg-blue text-white h-10 w-20 rounded-md">
+                <a
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={el.custom_data}
+                  className={`${el.status.toLowerCase() === "kadaluarsa" ? "text-black" : "bg-blue cursor-pointer text-white" } text-center leading-10 mx-auto block  h-10  w-20 rounded-md`}
+                >
                   {el.status.toLowerCase() === "cek nik"
                     ? "Cek"
                     : el.status.toLowerCase() === "daftar"
@@ -329,7 +357,7 @@ const Table = ({ currentPages }: any) => {
                     : el.status.toLowerCase() === "kadaluarsa"
                     ? "-"
                     : ""}
-                </button>
+                </a>
               </td>
             </tr>
           ))}

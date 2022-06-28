@@ -23,6 +23,8 @@ const DocumentSigning: NextPage = () => {
     alert(JSON.stringify(form, null, 4));
   };
 
+  const getListResquestData = ():void => {}
+
   return (
     <>
       <Head>
