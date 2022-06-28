@@ -3,6 +3,8 @@ import type { NextPage } from "next";
 import Sidebar from "@/components/Sidebar";
 import Head from "next/head";
 import Image from "next/image";
+import { restCreateRequest } from '@/infrastructure/rest/request'
+import Router from "next/router";
 
 type TForm = { tilaka_name?: string };
 
@@ -16,11 +18,18 @@ const DocumentSigning: NextPage = () => {
     formSetter({ ...form, [name]: value });
   };
 
-  const onSubmitHandler = (e: React.SyntheticEvent) => {
+  const onSubmitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-
-    // hit api with form state data
-    alert(JSON.stringify(form, null, 4));
+    const params: any = { ...form }
+    params.type = 'signing'
+    try {
+      const createRequest = await restCreateRequest({ params })
+      if (createRequest.data?.redirect_url) {
+        Router.push(createRequest.data.redirect_url)
+      }
+    } catch (e: any) {
+      alert(e.error)
+    }
   };
 
   const getListResquestData = ():void => {}
