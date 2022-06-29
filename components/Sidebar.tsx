@@ -38,9 +38,8 @@ const Sidebar = ({
 
   return (
     <aside
-      className={`w-full z-50 fixed  ${
-        !showSideBar ? "left-full" : "left-0"
-      } transition-all duration-500 ease-out md:w-72  h-screen  md:left-0 md:bg-white bg-neutral10`}
+      className={`w-full z-50 fixed  ${!showSideBar ? "left-full" : "left-0"
+        } transition-all duration-500 ease-out md:w-72  h-screen  md:left-0 md:bg-white bg-neutral10`}
     >
       <div className=" flex-row z-0 absolute top-0 items-center md:flex hidden px-5 pt-4 bg-white justify-between">
         <div className="flex space-x-4">
@@ -168,9 +167,8 @@ const Sidebar = ({
             >
               <Link href="/">
                 <a
-                  className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
-                    router.asPath == "/" ? "bg-blue80" : ""
-                  }`}
+                  className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${router.asPath == "/" ? "bg-blue80" : ""
+                    }`}
                 >
                   <Image
                     src="/icons/BarsIcon.svg"
@@ -179,9 +177,8 @@ const Sidebar = ({
                     alt="menu"
                   />
                   <p
-                    className={`"text-neutral800 ${
-                      router.asPath === "/" ? "text-blue" : ""
-                    } group-hover:text-blue"`}
+                    className={`"text-neutral800 ${router.asPath === "/" ? "text-blue" : ""
+                      } group-hover:text-blue"`}
                   >
                     List Request Akun Tilaka
                   </p>
@@ -190,20 +187,18 @@ const Sidebar = ({
 
               <Link href="/check-nik">
                 <a
-                  className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${
-                    router.asPath == "/check-nik" ? "bg-blue80" : ""
-                  }`}
+                  className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${router.asPath == "/check-nik" ? "bg-blue80" : ""
+                    }`}
                 >
                   <Image
-                    src="/icons/IdCardIcon.svg"
+                    src="/icons/IdcardIcon.svg"
                     height={30}
                     width={30}
                     alt="menu"
                   />
                   <p
-                    className={`"text-neutral800 ${
-                      router.asPath === "/check-nik" ? "text-blue" : ""
-                    } group-hover:text-blue"`}
+                    className={`"text-neutral800 ${router.asPath === "/check-nik" ? "text-blue" : ""
+                      } group-hover:text-blue"`}
                   >
                     Pengecekan NIK
                   </p>
@@ -211,18 +206,19 @@ const Sidebar = ({
               </Link>
               <Link href="/document-signing">
                 <a
-                className="flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3"
-              >
-                <Image
-                  src="/icons/PencilIcon.svg"
-                  height={30}
-                  width={30}
-                  alt="menu"
-                />
-                <p className="text-neutral800  group-hover:text-blue">
-                  Penandatanganan Dokumen
-                </p>
-              </a>
+                  className={`flex group hover:bg-blue80 px-5 py-5 w-full items-center space-x-3 ${router.asPath == "/document-signing" ? "bg-blue80" : ""
+                    }`}
+                >
+                  <Image
+                    src="/icons/PencilIcon.svg"
+                    height={30}
+                    width={30}
+                    alt="menu"
+                  />
+                  <p className="text-neutral800  group-hover:text-blue">
+                    Penandatanganan Dokumen
+                  </p>
+                </a>
               </Link>
             </div>
 

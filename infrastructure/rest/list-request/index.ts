@@ -2,8 +2,7 @@ import axios from "axios";
 import { Params } from "./types";
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  "https://e69d6d0b-5684-4da2-862a-79ca488d5507.mock.pstmn.io";
+  process.env.NEXT_PUBLIC_API_URL ||"http://10.117.1.103:9000";
 
 export const restGetListRequestData = ({
   params,

@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .badge-status-cek-nik {
+    @apply bg-checkColor px-3 py-0.5 text-neutral800 rounded-xl;
+  }
+  .badge-status-daftar {
+    @apply bg-registerColor px-3 py-0.5 text-neutral800 rounded-xl;
+  }
+  .badge-status-dalam-proses {
+    @apply bg-onProgressColor px-3 py-0.5 text-neutral800 rounded-xl;
+  }
+  .badge-status-terdaftar {
+    @apply bg-registeredColor px-3 py-0.5 text-neutral800 rounded-xl;
+  }
+  .badge-status-penautan {
+    @apply bg-linkColor px-3 py-0.5 text-neutral800 rounded-xl;
+  }
+  .badge-status-tertaut {
+    @apply bg-linkedColor px-3 py-0.5 text-neutral800 rounded-xl;
+  }
+  .badge-status-kadaluarsa {
+    @apply bg-expiredColor px-3 py-0.5 text-neutral200 rounded-xl;
+  }
+}
 
 * {
   font-family : "Poppins", "sans-serif"
